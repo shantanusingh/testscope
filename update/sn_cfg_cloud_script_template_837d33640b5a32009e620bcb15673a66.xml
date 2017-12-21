@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sn_cfg_cloud_script_template">
+    <sn_cfg_cloud_script_template action="INSERT_OR_UPDATE">
+        <content>#!/bin/bash&#13;
+mysql_installtion()&#13;
+{&#13;
+echo ***********************Creating Database***************************&#13;
+mysql -uroot -p$1 -e "CREATE USER 'test'@'localhost' IDENTIFIED BY 'Password@_123'"&#13;
+mysql -uroot -p$1  -e "CREATE USER 'test'@'%' IDENTIFIED BY 'Password@_123'"&#13;
+mysql -uroot -p$1  -e "GRANT ALL ON *.* TO 'test'@'localhost';"&#13;
+mysql -uroot -p$1  -e "GRANT ALL ON *.* TO 'test'@'%';"&#13;
+echo **********************Creating tables***************************&#13;
+mysql -utest -pPassword@_123 &lt;&lt; EOF&#13;
+&#13;
+create database TestDB;&#13;
+use TestDB;&#13;
+CREATE TABLE users (&#13;
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,&#13;
+firstname VARCHAR(30) NOT NULL,&#13;
+lastname VARCHAR(30) NOT NULL,&#13;
+email VARCHAR(50),&#13;
+dob TIMESTAMP&#13;
+);&#13;
+EOF&#13;
+}&#13;
+if which apt-get &gt;&gt; /dev/null 2&gt;&amp;1&#13;
+then&#13;
+echo "mysql-server-5.5 mysql-server/root_password password root" |sudo debconf-set-selections&#13;
+echo "mysql-server-5.5 mysql-server/root_password_again password root" |sudo debconf-set-selections&#13;
+echo *************************Updating repositories***************************&#13;
+sudo apt-get update &gt; /dev/null 2&gt;&amp;1&#13;
+echo *************************Installing MySql Server*****************************&#13;
+sudo apt-get -y install mysql-server-5.5 &gt; /dev/null 2&gt;&amp;1&#13;
+mysql_installtion&#13;
+sudo sed -i '/bind-address.*/s/^/#/' /etc/mysql/my.cnf&#13;
+sudo service mysql restart&#13;
+else&#13;
+echo ************************Installing Mysql Server*******************************&#13;
+sudo yum install http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm -y&#13;
+sudo yum install mysql-community-server -y /dev/null 2&gt;&amp;1&#13;
+sudo systemctl restart mysqld&#13;
+pwd=$(sudo grep 'temporary password' /var/log/mysqld.log | sed -n -e 's/^.*root@localhost: //p')&#13;
+echo 'password is :'$pwd&#13;
+&#13;
+sudo mysqladmin -u root password $pwd&#13;
+&#13;
+mysql -uroot -p$pwd -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Dilbert@_123' " --connect-expired-password&#13;
+&#13;
+mysql_installtion 'Dilbert@_123'&#13;
+&#13;
+sudo service firewalld stop&#13;
+&#13;
+if [ `which mysql` ]; then&#13;
+  mysql -uroot -pDilbert@_123 -e "SHOW VARIABLES" &gt; vars.txt&#13;
+  echo 'MySql Install Success'&#13;
+  cat vars.txt&#13;
+else&#13;
+  echo "MySql Install Failure"&#13;
+fi&#13;
+&#13;
+#sudo systemctl stop iptables&#13;
+fi</content>
+        <name>InstallMySQL</name>
+        <sys_class_name>sn_cfg_cloud_script_template</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-04-20 10:08:50</sys_created_on>
+        <sys_id>837d33640b5a32009e620bcb15673a66</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>InstallMySQL</sys_name>
+        <sys_package display_value="sc_app_one" source="x_snc_sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_scope>
+        <sys_update_name>sn_cfg_cloud_script_template_837d33640b5a32009e620bcb15673a66</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-04-20 10:08:50</sys_updated_on>
+    </sn_cfg_cloud_script_template>
+</record_update>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sn_cfg_cloud_script_template">
+    <sn_cfg_cloud_script_template action="INSERT_OR_UPDATE">
+        <content>#!/bin/bash&#13;
+&#13;
+if which apt-get &gt; /dev/null 2&gt;&amp;1&#13;
+then&#13;
+sudo sed -i '/&lt;\/VirtualHost&gt;/i \&#13;
+\t ProxyPass / ajp://#TOMCATURL#:8009/ \&#13;
+\t ProxyPassReverse / ajp://#TOMCATURL#:8009/' /etc/apache2/sites-enabled/000-default.conf&#13;
+&#13;
+sudo service apache2 restart&#13;
+else&#13;
+sudo bash -c 'echo "ProxyPass / ajp://#TOMCATURL#:8009/" &gt;&gt; /etc/httpd/conf/httpd.conf'&#13;
+sudo bash -c 'echo "ProxyPassReverse / ajp://#TOMCATURL#:8009/" &gt;&gt; /etc/httpd/conf/httpd.conf'&#13;
+sudo kill -9 httpd&#13;
+sudo rm -f /var/lock/subsys/httpd&#13;
+sudo service httpd restart&#13;
+fi</content>
+        <name>AttachTomcat</name>
+        <sys_class_name>sn_cfg_cloud_script_template</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-04-20 10:11:56</sys_created_on>
+        <sys_id>1f2ef3640b5a32009e620bcb15673a01</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>AttachTomcat</sys_name>
+        <sys_package display_value="sc_app_one" source="x_snc_sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_scope>
+        <sys_update_name>sn_cfg_cloud_script_template_1f2ef3640b5a32009e620bcb15673a01</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-04-20 10:11:56</sys_updated_on>
+    </sn_cfg_cloud_script_template>
+</record_update>

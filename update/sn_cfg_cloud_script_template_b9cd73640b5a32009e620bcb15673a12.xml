@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sn_cfg_cloud_script_template">
+    <sn_cfg_cloud_script_template action="INSERT_OR_UPDATE">
+        <content>#!/bin/bash&#13;
+&#13;
+sed -i '$ i\&lt;Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource" \&#13;
+             maxActive="100" maxIdle="30" maxWait="10000" \&#13;
+             username="#JDBCUSER#" password="#JDBCPASSWORD#" driverClassName="com.mysql.jdbc.Driver" \&#13;
+             url="jdbc:mysql://#JDBCURL#:3306/TestDB"/&gt;' ~/tomcat/conf/context.xml &#13;
+sed -i '$ i\&lt;resource-ref&gt; \&#13;
+      &lt;description&gt;MySQL Datasource example&lt;/description&gt; \&#13;
+       &lt;res-ref-name&gt;jdbc/TestDB&lt;/res-ref-name&gt; \&#13;
+       &lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt; \&#13;
+       &lt;res-auth&gt;Container&lt;/res-auth&gt; \&#13;
+ &lt;/resource-ref&gt;' ~/tomcat/webapps/bindings/WEB-INF/web.xml&#13;
+&#13;
+mkdir $HOME/JAVA&#13;
+curl -L -b "oraclelicense=a" http://download.oracle.com/otn-pub/java/jdk/7u55-b13/jdk-7u55-linux-x64.tar.gz -o $HOME/JAVA/jdk-7-linux-x64.tar.gz&#13;
+tar -xvf $HOME/JAVA/jdk-7-linux-x64.tar.gz -C $HOME/JAVA&#13;
+if [ -f $HOME/.bash_profile ]&#13;
+then&#13;
+echo "export JAVA_HOME=$HOME/JAVA/jdk1.7.0_55" &gt;&gt; $HOME/.bash_profile&#13;
+sudo bash -c 'echo "export JAVA_HOME=~/JAVA/jdk1.7.0_55" &gt;&gt; /etc/profile'&#13;
+. $HOME/.bash_profile&#13;
+else&#13;
+echo "export JAVA_HOME=$HOME/JAVA/jdk1.7.0_55" &gt;&gt; $HOME/.profile&#13;
+sudo bash -c 'echo "export JAVA_HOME=~/JAVA/jdk1.7.0_55" &gt;&gt; /etc/profile'&#13;
+. $HOME/.profile&#13;
+fi&#13;
+&#13;
+nohup sh ~/tomcat/bin/startup.sh</content>
+        <name>AttachMySQL</name>
+        <sys_class_name>sn_cfg_cloud_script_template</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-04-20 10:10:49</sys_created_on>
+        <sys_id>b9cd73640b5a32009e620bcb15673a12</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>AttachMySQL</sys_name>
+        <sys_package display_value="sc_app_one" source="x_snc_sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_scope>
+        <sys_update_name>sn_cfg_cloud_script_template_b9cd73640b5a32009e620bcb15673a12</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-04-20 10:10:49</sys_updated_on>
+    </sn_cfg_cloud_script_template>
+</record_update>

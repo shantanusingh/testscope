@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sn_cfg_cloud_script_parameter">
+    <sn_cfg_cloud_script_parameter action="INSERT_OR_UPDATE">
+        <ci_script display_value="AttachMySQL">20cef7640b5a32009e620bcb15673ac6</ci_script>
+        <default_value>test</default_value>
+        <name>JDBCUSER</name>
+        <sys_class_name>sn_cfg_cloud_script_parameter</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-04-20 10:15:07</sys_created_on>
+        <sys_id>f0cef7640b5a32009e620bcb15673a58</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>JDBCUSER</sys_name>
+        <sys_package display_value="sc_app_one" source="x_snc_sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_scope>
+        <sys_update_name>sn_cfg_cloud_script_parameter_f0cef7640b5a32009e620bcb15673a58</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-04-20 10:15:07</sys_updated_on>
+    </sn_cfg_cloud_script_parameter>
+</record_update>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sn_cmp_rb_resourcehost">
+    <sn_cmp_rb_resourcehost action="INSERT_OR_UPDATE">
+        <guestresource display_value="UbuntuVMARM ">9fa5cd6fdb43c300883ef9361d961976</guestresource>
+        <hostresource display_value="Azure Datacenter">ddf5cd6bd722220097eb6ccf6e610346</hostresource>
+        <sys_class_name>sn_cmp_rb_resourcehost</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-21 07:25:23</sys_created_on>
+        <sys_id>e7a5cd6fdb43c300883ef9361d9619ab</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="sc_app_one" source="x_snc_sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_scope>
+        <sys_update_name>sn_cmp_rb_resourcehost_e7a5cd6fdb43c300883ef9361d9619ab</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-21 07:25:23</sys_updated_on>
+    </sn_cmp_rb_resourcehost>
+</record_update>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sn_cfg_cloud_template_parameter">
+    <sn_cfg_cloud_template_parameter action="INSERT_OR_UPDATE">
+        <cs_template display_value="AttachMySQL">b9cd73640b5a32009e620bcb15673a12</cs_template>
+        <defaultvalue>Password@_123</defaultvalue>
+        <name>JDBCPASSWORD</name>
+        <overridevalue/>
+        <sys_class_name>sn_cfg_cloud_template_parameter</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-04-20 10:10:49</sys_created_on>
+        <sys_id>5eedb3640b5a32009e620bcb15673a4d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>JDBCPASSWORD</sys_name>
+        <sys_package display_value="sc_app_one" source="x_snc_sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_scope>
+        <sys_update_name>sn_cfg_cloud_template_parameter_5eedb3640b5a32009e620bcb15673a4d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-04-20 10:10:49</sys_updated_on>
+    </sn_cfg_cloud_template_parameter>
+</record_update>

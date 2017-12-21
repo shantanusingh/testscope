@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>cf6ee9a6dbc30300883ef9361d961990</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sc_request">
+    <sc_request action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <activity_due/>
+        <additional_assignee_list/>
+        <approval>not requested</approval>
+        <approval_history/>
+        <approval_set/>
+        <assigned_to/>
+        <assignment_group/>
+        <business_duration/>
+        <business_service/>
+        <calendar_duration/>
+        <calendar_stc/>
+        <close_notes/>
+        <closed_at/>
+        <closed_by/>
+        <cmdb_ci/>
+        <comments/>
+        <comments_and_work_notes/>
+        <company/>
+        <contact_type/>
+        <correlation_display/>
+        <correlation_id/>
+        <delivery_address/>
+        <delivery_plan/>
+        <delivery_task/>
+        <description/>
+        <due_date>2017-12-18 21:49:28</due_date>
+        <escalation>0</escalation>
+        <expected_start/>
+        <follow_up/>
+        <group_list/>
+        <impact>3</impact>
+        <knowledge>false</knowledge>
+        <location/>
+        <made_sla>true</made_sla>
+        <number>REQ0010001</number>
+        <opened_at>2017-12-18 07:49:29</opened_at>
+        <opened_by display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</opened_by>
+        <order/>
+        <parent/>
+        <price>0</price>
+        <priority>4</priority>
+        <reassignment_count>0</reassignment_count>
+        <rejection_goto/>
+        <request_state>requested</request_state>
+        <requested_date/>
+        <requested_for display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</requested_for>
+        <short_description/>
+        <sla_due/>
+        <special_instructions/>
+        <stage>requested</stage>
+        <state>1</state>
+        <sys_class_name>sc_request</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-18 07:49:29</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>cf6ee9a6dbc30300883ef9361d961990</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-18 07:49:29</sys_updated_on>
+        <time_worked/>
+        <upon_approval>proceed</upon_approval>
+        <upon_reject>cancel</upon_reject>
+        <urgency>3</urgency>
+        <user_input/>
+        <variables/>
+        <watch_list/>
+        <wf_activity/>
+        <work_end/>
+        <work_notes/>
+        <work_notes_list/>
+        <work_start/>
+    </sc_request>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-21 07:19:00</sys_created_on>
+        <sys_id>8a3441e7db4f83000cfcdc965e9619ec</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>REQ0010001</sys_name>
+        <sys_package display_value="sc_app_one" source="x_snc_sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_scope>
+        <sys_update_name>sys_metadata_link_8a3441e7db4f83000cfcdc965e9619ec</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-21 07:19:00</sys_updated_on>
+        <tablename>task</tablename>
+    </sys_metadata_link>
+</record_update>

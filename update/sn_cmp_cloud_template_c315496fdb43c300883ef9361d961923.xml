@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sn_cmp_cloud_template">
+    <sn_cmp_cloud_template action="INSERT_OR_UPDATE">
+        <body>{&#13;
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",&#13;
+  "contentVersion": "1.0.0.0",&#13;
+  "parameters": {&#13;
+    "adminUsername": {&#13;
+      "type": "string",&#13;
+      "metadata": {&#13;
+        "description": "User name for the Virtual Machine."&#13;
+      }&#13;
+    },&#13;
+    "adminPassword": {&#13;
+      "type": "securestring",&#13;
+      "metadata": {&#13;
+        "description": "Password for the Virtual Machine."&#13;
+      }&#13;
+    },&#13;
+    "dnsLabelPrefix": {&#13;
+      "type": "string",&#13;
+      "metadata": {&#13;
+        "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."&#13;
+      }&#13;
+    },&#13;
+    "ubuntuOSVersion": {&#13;
+      "type": "string",&#13;
+      "defaultValue": "16.04.0-LTS",&#13;
+      "allowedValues": [&#13;
+        "12.04.5-LTS",&#13;
+        "14.04.5-LTS",&#13;
+        "15.10",&#13;
+        "16.04.0-LTS"&#13;
+      ],&#13;
+      "metadata": {&#13;
+        "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version."&#13;
+      }&#13;
+    }&#13;
+  },&#13;
+  "variables": {&#13;
+    "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'salinuxvm')]",&#13;
+    "dataDisk1VhdName": "datadisk1",&#13;
+    "imagePublisher": "Canonical",&#13;
+    "imageOffer": "UbuntuServer",&#13;
+    "OSDiskName": "osdiskforlinuxsimple",&#13;
+    "nicName": "myARMVMNic",&#13;
+    "addressPrefix": "10.0.0.0/16",&#13;
+    "subnetName": "myARMSubnet",&#13;
+    "subnetPrefix": "10.0.0.0/24",&#13;
+    "storageAccountType": "Standard_LRS",&#13;
+    "publicIPAddressName": "myARMPublicIP",&#13;
+    "publicIPAddressType": "Dynamic",&#13;
+    "vmStorageAccountContainerName": "vhds",&#13;
+    "vmName": "MyARMUbuntuVM",&#13;
+    "vmSize": "Standard_A1",&#13;
+    "virtualNetworkName": "MyARMVNET",&#13;
+    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",&#13;
+    "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]"&#13;
+  },&#13;
+  "resources": [&#13;
+    {&#13;
+      "type": "Microsoft.Storage/storageAccounts",&#13;
+      "name": "[variables('storageAccountName')]",&#13;
+      "apiVersion": "2016-01-01",&#13;
+      "location": "[resourceGroup().location]",&#13;
+      "sku": {&#13;
+        "name": "[variables('storageAccountType')]"&#13;
+      },&#13;
+      "kind": "Storage",&#13;
+      "properties": {}&#13;
+    },&#13;
+    {&#13;
+      "apiVersion": "2016-09-01",&#13;
+      "type": "Microsoft.Network/publicIPAddresses",&#13;
+      "name": "[variables('publicIPAddressName')]",&#13;
+      "location": "[resourceGroup().location]",&#13;
+      "properties": {&#13;
+        "publicIPAllocationMethod": "[variables('publicIPAddressType')]",&#13;
+        "dnsSettings": {&#13;
+          "domainNameLabel": "[parameters('dnsLabelPrefix')]"&#13;
+        }&#13;
+      }&#13;
+    },&#13;
+    {&#13;
+      "apiVersion": "2016-09-01",&#13;
+      "type": "Microsoft.Network/virtualNetworks",&#13;
+      "name": "[variables('virtualNetworkName')]",&#13;
+      "location": "[resourceGroup().location]",&#13;
+      "properties": {&#13;
+        "addressSpace": {&#13;
+          "addressPrefixes": [&#13;
+            "[variables('addressPrefix')]"&#13;
+          ]&#13;
+        },&#13;
+        "subnets": [&#13;
+          {&#13;
+            "name": "[variables('subnetName')]",&#13;
+            "properties": {&#13;
+              "addressPrefix": "[variables('subnetPrefix')]"&#13;
+            }&#13;
+          }&#13;
+        ]&#13;
+      }&#13;
+    },&#13;
+    {&#13;
+      "apiVersion": "2016-09-01",&#13;
+      "type": "Microsoft.Network/networkInterfaces",&#13;
+      "name": "[variables('nicName')]",&#13;
+      "location": "[resourceGroup().location]",&#13;
+      "dependsOn": [&#13;
+        "[resourceId('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",&#13;
+        "[resourceId('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"&#13;
+      ],&#13;
+      "properties": {&#13;
+        "ipConfigurations": [&#13;
+          {&#13;
+            "name": "ipconfig1",&#13;
+            "properties": {&#13;
+              "privateIPAllocationMethod": "Dynamic",&#13;
+              "publicIPAddress": {&#13;
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"&#13;
+              },&#13;
+              "subnet": {&#13;
+                "id": "[variables('subnetRef')]"&#13;
+              }&#13;
+            }&#13;
+          }&#13;
+        ]&#13;
+      }&#13;
+    },&#13;
+    {&#13;
+      "apiVersion": "2016-03-30",&#13;
+      "type": "Microsoft.Compute/virtualMachines",&#13;
+      "name": "[variables('vmName')]",&#13;
+      "location": "[resourceGroup().location]",&#13;
+      "dependsOn": [&#13;
+        "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",&#13;
+        "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]"&#13;
+      ],&#13;
+      "properties": {&#13;
+        "hardwareProfile": {&#13;
+          "vmSize": "[variables('vmSize')]"&#13;
+        },&#13;
+        "osProfile": {&#13;
+          "computerName": "[variables('vmName')]",&#13;
+          "adminUsername": "[parameters('adminUsername')]",&#13;
+          "adminPassword": "[parameters('adminPassword')]"&#13;
+        },&#13;
+        "storageProfile": {&#13;
+          "imageReference": {&#13;
+            "publisher": "[variables('imagePublisher')]",&#13;
+            "offer": "[variables('imageOffer')]",&#13;
+            "sku": "[parameters('ubuntuOSVersion')]",&#13;
+            "version": "latest"&#13;
+          },&#13;
+          "osDisk": {&#13;
+            "name": "osdisk",&#13;
+            "vhd": {&#13;
+              "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), '2016-01-01').primaryEndpoints.blob, variables('vmStorageAccountContainerName'),'/',variables('OSDiskName'),'.vhd')]"&#13;
+            },&#13;
+            "caching": "ReadWrite",&#13;
+            "createOption": "FromImage"&#13;
+          },&#13;
+          "dataDisks": [&#13;
+            {&#13;
+              "name": "datadisk1",&#13;
+              "diskSizeGB": "100",&#13;
+              "lun": 0,&#13;
+              "vhd": {&#13;
+                "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), '2016-01-01').primaryEndpoints.blob, variables('vmStorageAccountContainerName'),'/',variables('dataDisk1VhdName'),'.vhd')]"&#13;
+              },&#13;
+              "createOption": "Empty"&#13;
+            }&#13;
+          ]&#13;
+        },&#13;
+        "networkProfile": {&#13;
+          "networkInterfaces": [&#13;
+            {&#13;
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"&#13;
+            }&#13;
+          ]&#13;
+        },&#13;
+        "diagnosticsProfile": {&#13;
+          "bootDiagnostics": {&#13;
+            "enabled": "true",&#13;
+            "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), '2016-01-01').primaryEndpoints.blob)]"&#13;
+          }&#13;
+        }&#13;
+      }&#13;
+    }&#13;
+  ],&#13;
+  "outputs": {&#13;
+    "hostname": {&#13;
+      "type": "string",&#13;
+      "value": "[reference(variables('publicIPAddressName')).dnsSettings.fqdn]"&#13;
+    },&#13;
+    "sshCommand": {&#13;
+      "type": "string",&#13;
+      "value": "[concat('ssh ', parameters('adminUsername'), '@', reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"&#13;
+    }&#13;
+  }&#13;
+}</body>
+        <name>UbuntuVMARM </name>
+        <short_description/>
+        <sys_class_name>sn_cmp_cloud_template</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-21 07:25:17</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_id>c315496fdb43c300883ef9361d961923</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>UbuntuVMARM </sys_name>
+        <sys_package display_value="sc_app_one" source="x_snc_sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="sc_app_one">50dcf8efdb0f83000cfcdc965e961903</sys_scope>
+        <sys_update_name>sn_cmp_cloud_template_c315496fdb43c300883ef9361d961923</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-21 07:25:17</sys_updated_on>
+        <template_url/>
+        <type display_value="ARM Template">612f41e49f00320048111f80a57fcf82</type>
+        <use_template_body>true</use_template_body>
+    </sn_cmp_cloud_template>
+</record_update>
